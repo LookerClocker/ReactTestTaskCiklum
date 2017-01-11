@@ -14,23 +14,38 @@ export default class SearchAlbums extends Component {
         };
     };
 
+    /**
+     * Handling typing value
+     * @param e = event
+     */
     handleChange = (e)=> {
         this.setState({
             searchQuery: e.target.value
         })
     };
 
+    /**
+     * Handling key press 'Enter'
+     * @param e = event
+     */
     handleKeyPress = (e)=> {
         if (e.key === "Enter") {
             this.fetchAlbums(this.state.searchQuery);
         }
     };
 
+    /**
+     * Fetching artist`s information from Spotify and iTunes API`s using fetch and fetchJsonp
+     * @param query = value wich user typed
+     */
     fetchAlbums = (query)=> {
+        /**
+         * Fetching artist`s information from Spotify API and added all necessary information into albumsSpotify array
+         * @param query = value wich user typed
+         */
         let fetchSpotify = fetch('https://api.spotify.com/v1/search?q=' + query + '&type=album')
             .then(r => r.json())
             .then(r => {
-                console.log(r);
                 this.setState({
                     albumsSpotify: r.albums.items.map(item=> {
                         return {
@@ -43,6 +58,11 @@ export default class SearchAlbums extends Component {
             })
             .catch(ex => console.log('fetching failed', ex));
 
+        /**
+         * Fetching artist`s information from iTunes API and added all necessary information into albumsItunes array
+         * in this case i used fetchJsonp because of itunes domain doesn`t support cors
+         * @param query = value wich user typed
+         */
         let fetchItunes = fetchJsonp('https://itunes.apple.com/search?term=' + query + '&entity=album')
             .then(r => r.json())
             .then(r => {
@@ -59,6 +79,12 @@ export default class SearchAlbums extends Component {
             })
             .catch(ex => console.log('fetching failed', ex));
 
+        /**
+         * This method allows to gather all information from different API`s and will be executed only when all requests
+         * will be executed. Concat data from both API into state (albumsInfo array)
+         * @param fetchItunes = all data from itunes
+         * @param fetchSpotify = all data from spotify
+         */
         Promise.all([fetchItunes, fetchSpotify]).then(() => {
             this.setState({
                 albumsInfo: this.state.albumsSpotify.concat(this.state.albumsItunes)
@@ -82,7 +108,7 @@ export default class SearchAlbums extends Component {
 
         return (
             <div className="app-wrapper text-center">
-                <h1>Spotify and iTunes album search</h1>
+                <h1>Spotify and iTunes artist search</h1>
                 <div className="input-wrap">
                     <div className="group">
                         <input type="text" required onChange={this.handleChange} value={this.state.searchQuery}
