@@ -93,7 +93,6 @@ export default class SearchAlbums extends Component {
         });
     };
 
-
     render() {
         let renderedAlbums = this.state.albumsInfo.map((item, index) => {
             return (
