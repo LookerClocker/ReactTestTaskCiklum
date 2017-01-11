@@ -4,6 +4,9 @@ issue.
     Also i used Promise.all() method. The main reason why i did this was because of two different queries firs to Spotify, and
 second to iTunes. So i needed to 'wait' till both of them will execute and after that i gather all information which i need.
 
+------------------------------------------------------------------------------------------------------
+Have some issue on production mode the data fetched only from spotify. But it works on development mode
+------------------------------------------------------------------------------------------------------
 I wrote this application using ES6 syntax.
 
 For run in development mode: pull from https://github.com/LookerClocker/ReactTestTaskCiklum/blob/master/src/SearchAlbums.js
