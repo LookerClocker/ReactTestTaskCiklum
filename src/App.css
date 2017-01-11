@@ -1,4 +1,5 @@
 
+/* main css file */
 .app-wrapper {
     float: none;
     margin: 0 auto;
@@ -39,7 +40,7 @@ input {
     font-size: 20px !important;
     padding: 10px 10px 2px 5px;
     border-bottom: 1px solid #757575;
-    background-color: rgba(227, 234, 234, 0.96);
+    /*background-color: rgba(227, 234, 234, 0.96);*/
 }
 
 input:focus {
