@@ -43,7 +43,7 @@ export default class SearchAlbums extends Component {
          * Fetching artist`s information from Spotify API and added all necessary information into albumsSpotify array
          * @param query = value wich user typed
          */
-        let fetchSpotify = fetch('https://api.spotify.com/v1/search?q=' + query + '&type=album')
+        const fetchSpotify = fetch('https://api.spotify.com/v1/search?q=' + query + '&type=album')
             .then(r => r.json())
             .then(r => {
                 this.setState({
@@ -63,7 +63,7 @@ export default class SearchAlbums extends Component {
          * in this case i used fetchJsonp because of itunes domain doesn`t support cors
          * @param query = value wich user typed
          */
-        let fetchItunes = fetchJsonp('https://itunes.apple.com/search?term=' + query + '&entity=album')
+        const fetchItunes = fetchJsonp('https://itunes.apple.com/search?term=' + query + '&entity=album')
             .then(r => r.json())
             .then(r => {
                 this.setState({
@@ -81,9 +81,10 @@ export default class SearchAlbums extends Component {
 
         /**
          * This method allows to gather all information from different API`s and will be executed only when all requests
-         * will be executed. Concat data from both API into state (albumsInfo array)
+         * will be executed. Concat data from both API into state (albumsInfo array). It doesn`t modify data which are in state.
          * @param fetchItunes = all data from itunes
          * @param fetchSpotify = all data from spotify
+         * @param albumsInfo = new array witch contains values from both array.
          */
         Promise.all([fetchItunes, fetchSpotify]).then(() => {
             this.setState({
